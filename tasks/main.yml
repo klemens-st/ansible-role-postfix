@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: BSD-3-Clause
+---
+- name: Ensure postfix is installed.
+  ansible.builtin.apt:
+    name: postfix
+    state: present
+
+- name: Update Postfix configuration.
+  ansible.builtin.lineinfile:
+    dest: "{{ postfix_config_file }}"
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+    mode: 0644
+  loop: "{{ postfix_config }}"
+  notify: restart postfix
+
+- name: Configure additional parameters for Postfix.
+  ansible.builtin.lineinfile:
+    dest: "{{ postfix_config_file }}"
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+    mode: 0644
+  loop: "{{ postfix_config_extra }}"
+  notify: restart postfix
+
+- name: Ensure postfix is started and enabled at boot.
+  service:
+    name: postfix
+    state: "{{ postfix_service_state }}"
+    enabled: "{{ postfix_service_enabled }}"

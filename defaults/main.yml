@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: BSD-3-Clause
+---
+postfix_config_file: /etc/postfix/main.cf
+
+postfix_service_state: started
+postfix_service_enabled: true
+
+postfix_inet_interfaces: all
+postfix_inet_protocols: all
+postfix_disable_vrfy_command: yes
+postfix_smtpd_tls_loglevel: 1
+postfix_smtp_tls_loglevel: 1
+postfix_smtpd_tls_security_level: may
+postfix_smtp_tls_security_level: may
+postfix_message_size_limit: 20480000  # 20 MB
+
+postfix_config:
+  - name: inet_interfaces
+    value: "{{ postfix_inet_interfaces }}"
+  - name: inet_protocols
+    value: "{{ postfix_inet_protocols }}"
+  - name: disable_vrfy_command
+    value: "{{ postfix_disable_vrfy_command }}"
+  - name: smtpd_tls_loglevel
+    value: "{{ postfix_smtpd_tls_loglevel }}"
+  - name: smtp_tls_loglevel
+    value: "{{ postfix_smtp_tls_loglevel }}"
+  - name: smtpd_tls_security_level
+    value: "{{ postfix_smtpd_tls_security_level }}"
+  - name: smtp_tls_security_level
+    value: "{{ postfix_smtp_tls_security_level }}"
+  - name: message_size_limit
+    value: "{{ postfix_message_size_limit }}"
+
+postfix_config_extra: []
