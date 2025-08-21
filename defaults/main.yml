@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 ---
+postfix_manage_config: false
+
 postfix_config_file: /etc/postfix/main.cf
 
 postfix_service_state: started

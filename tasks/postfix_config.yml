@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: BSD-3-Clause
+---
+- name: Update Postfix configuration.
+  ansible.builtin.lineinfile:
+    dest: "{{ postfix_config_file }}"
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+    mode: 0644
+  loop: "{{ postfix_config }}"
+  notify: restart postfix
+
+- name: Configure additional parameters for Postfix.
+  ansible.builtin.lineinfile:
+    dest: "{{ postfix_config_file }}"
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+    mode: 0644
+  loop: "{{ postfix_config_extra }}"
+  notify: restart postfix

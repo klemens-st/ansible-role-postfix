@@ -22,7 +22,10 @@ postfix_service_state: started
 postfix_service_enabled: true
 ```
 The state in which the Postfix service should be after this role runs, and whether to enable the service on startup.
-
+```yaml
+postfix_manage_config: false
+```
+By default Postfix configuration is left untouched, set to true to enable config management detailed below.
 ```yaml
 postfix_inet_interfaces: all
 postfix_inet_protocols: all
